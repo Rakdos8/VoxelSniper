@@ -53,12 +53,8 @@
 
     <repositories>
         <repository>
-            <id>tvpt-repo</id>
-            <url>http://vault.voxelmodpack.com/content/repositories/central/</url>
-        </repository>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>rakdos.net</id>
+            <url>https://nexus.bourelly.net/repository/minecraft</url>
         </repository>
     </repositories>
 
@@ -66,7 +62,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <version>1.17-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.martiansoftware</groupId>
