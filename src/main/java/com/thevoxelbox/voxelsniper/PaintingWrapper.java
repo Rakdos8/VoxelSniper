@@ -1,5 +1,7 @@
 package com.thevoxelbox.voxelsniper;
 
+import java.util.Set;
+
 import org.bukkit.Art;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -9,8 +11,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
-
-import java.util.Set;
 
 /**
  * Painting state change handler.
@@ -40,17 +40,17 @@ public final class PaintingWrapper
     @SuppressWarnings("deprecation")
     public static void paint(final Player p, final boolean auto, final boolean back, final int choice)
     {
-        Location targetLocation = p.getTargetBlock((Set<Material>) null, 4).getLocation();
-        Chunk paintingChunk = p.getTargetBlock((Set<Material>) null, 4).getLocation().getChunk();
+        final Location targetLocation = p.getTargetBlock((Set<Material>) null, 4).getLocation();
+        final Chunk paintingChunk = p.getTargetBlock((Set<Material>) null, 4).getLocation().getChunk();
 
         Double bestDistanceMatch = 50D;
         Painting bestMatch = null;
 
-        for (Entity entity : paintingChunk.getEntities())
+        for (final Entity entity : paintingChunk.getEntities())
         {
             if (entity.getType() == EntityType.PAINTING)
             {
-                Double distance = targetLocation.distanceSquared(entity.getLocation());
+                final Double distance = targetLocation.distanceSquared(entity.getLocation());
 
                 if (distance <= 4 && distance < bestDistanceMatch)
                 {
@@ -67,7 +67,7 @@ public final class PaintingWrapper
                 try
                 {
                     final int i = bestMatch.getArt().getId() + (back ? -1 : 1) + Art.values().length % Art.values().length;
-                    Art art = Art.getById(i);
+                    final Art art = Art.getById(i);
 
                     if (art == null)
                     {
@@ -87,7 +87,7 @@ public final class PaintingWrapper
             {
                 try
                 {
-                    Art art = Art.getById(choice);
+                    final Art art = Art.getById(choice);
 
                     bestMatch.setArt(art);
                     p.sendMessage(ChatColor.GREEN + "Painting set to ID: " + choice);

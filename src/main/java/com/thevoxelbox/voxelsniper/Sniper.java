@@ -1,5 +1,19 @@
 package com.thevoxelbox.voxelsniper;
 
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.material.MaterialData;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ClassToInstanceMap;
@@ -13,37 +27,23 @@ import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
 import com.thevoxelbox.voxelsniper.brush.perform.Performer;
 import com.thevoxelbox.voxelsniper.event.SniperMaterialChangedEvent;
 import com.thevoxelbox.voxelsniper.event.SniperReplaceMaterialChangedEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
-import org.bukkit.material.MaterialData;
-
-import java.lang.ref.WeakReference;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  *
  */
 public class Sniper
 {
-    private VoxelSniper plugin;
+    private final VoxelSniper plugin;
     private final UUID player;
     private boolean enabled = true;
-    private LinkedList<Undo> undoList = new LinkedList<Undo>();
-    private Map<String, SniperTool> tools = Maps.newHashMap();
+    private final LinkedList<Undo> undoList = new LinkedList<>();
+    private final Map<String, SniperTool> tools = Maps.newHashMap();
 
-    public Sniper(VoxelSniper plugin, Player player)
+    public Sniper(final VoxelSniper plugin, final Player player)
     {
         this.plugin = plugin;
         this.player = player.getUniqueId();
-        SniperTool sniperTool = new SniperTool(this);
+        final SniperTool sniperTool = new SniperTool(this);
         sniperTool.assignAction(SnipeAction.ARROW, Material.ARROW);
         sniperTool.assignAction(SnipeAction.GUNPOWDER, Material.GUNPOWDER);
         tools.put(null, sniperTool);
@@ -54,14 +54,14 @@ public class Sniper
         return getToolId((getPlayer().getItemInHand() != null) ? getPlayer().getItemInHand().getType() : null);
     }
 
-    public String getToolId(Material itemInHand)
+    public String getToolId(final Material itemInHand)
     {
         if (itemInHand == null)
         {
             return null;
         }
 
-        for (Map.Entry<String, SniperTool> entry : tools.entrySet())
+        for (final Map.Entry<String, SniperTool> entry : tools.entrySet())
         {
             if (entry.getValue().hasToolAssigned(itemInHand))
             {
@@ -85,10 +85,10 @@ public class Sniper
      * @param clickedFace  Face of that targeted Block
      * @return true if command visibly processed, false otherwise.
      */
-    public boolean snipe(Action action, Material itemInHand, Block clickedBlock, BlockFace clickedFace)
+    public boolean snipe(final Action action, final Material itemInHand, final Block clickedBlock, final BlockFace clickedFace)
     {
-        String toolId = getToolId(itemInHand);
-        SniperTool sniperTool = tools.get(toolId);
+        final String toolId = getToolId(itemInHand);
+        final SniperTool sniperTool = tools.get(toolId);
 
         switch (action)
         {
@@ -115,11 +115,11 @@ public class Sniper
                 return true;
             }
 
-            SnipeData snipeData = sniperTool.getSnipeData();
+            final SnipeData snipeData = sniperTool.getSnipeData();
             if (getPlayer().isSneaking())
             {
-                Block targetBlock;
-                SnipeAction snipeAction = sniperTool.getActionAssigned(itemInHand);
+                final Block targetBlock;
+                final SnipeAction snipeAction = sniperTool.getActionAssigned(itemInHand);
 
                 switch (action)
                 {
@@ -131,7 +131,7 @@ public class Sniper
                         }
                         else
                         {
-                            RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
+                            final RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
                             targetBlock = snipeData.isRanged() ? rangeBlockHelper.getRangeBlock() : rangeBlockHelper.getTargetBlock();
                         }
 
@@ -140,19 +140,19 @@ public class Sniper
                             case ARROW:
                                 if (targetBlock != null)
                                 {
-                                    BlockData originalVoxel = snipeData.getVoxelData();
+                                    final BlockData originalVoxel = snipeData.getVoxelData();
                                     final BlockData blockData = targetBlock.getBlockData();
                                     snipeData.setVoxelData(blockData);
-                                    SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, originalVoxel, blockData);
+                                    final SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, originalVoxel, blockData);
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().voxel();
                                     return true;
                                 }
                                 else
                                 {
-                                    int originalVoxel = snipeData.getVoxelId();
+                                    final int originalVoxel = snipeData.getVoxelId();
                                     snipeData.setVoxelId(0);
-                                    SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(originalVoxel, snipeData.getData()), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
+                                    final SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(originalVoxel, snipeData.getData()), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().voxel();
                                     return true;
@@ -160,18 +160,18 @@ public class Sniper
                             case GUNPOWDER:
                                 if (targetBlock != null)
                                 {
-                                    byte originalData = snipeData.getData();
+                                    final byte originalData = snipeData.getData();
                                     snipeData.setData(targetBlock.getData());
-                                    SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getVoxelId(), originalData), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
+                                    final SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getVoxelId(), originalData), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().data();
                                     return true;
                                 }
                                 else
                                 {
-                                    byte originalData = snipeData.getData();
+                                    final byte originalData = snipeData.getData();
                                     snipeData.setData((byte) 0);
-                                    SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getVoxelId(), originalData), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
+                                    final SniperMaterialChangedEvent event = new SniperMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getVoxelId(), originalData), new MaterialData(snipeData.getVoxelId(), snipeData.getData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().data();
                                     return true;
@@ -188,7 +188,7 @@ public class Sniper
                         }
                         else
                         {
-                            RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
+                            final RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
                             targetBlock = snipeData.isRanged() ? rangeBlockHelper.getRangeBlock() : rangeBlockHelper.getTargetBlock();
                         }
 
@@ -197,18 +197,18 @@ public class Sniper
                             case ARROW:
                                 if (targetBlock != null)
                                 {
-                                    int originalId = snipeData.getReplaceId();
+                                    final int originalId = snipeData.getReplaceId();
                                     snipeData.setReplaceId(targetBlock.getTypeId());
-                                    SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(originalId, snipeData.getReplaceData()), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
+                                    final SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(originalId, snipeData.getReplaceData()), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().replace();
                                     return true;
                                 }
                                 else
                                 {
-                                    int originalId = snipeData.getReplaceId();
+                                    final int originalId = snipeData.getReplaceId();
                                     snipeData.setReplaceId(0);
-                                    SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(originalId, snipeData.getReplaceData()), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
+                                    final SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(originalId, snipeData.getReplaceData()), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().replace();
                                     return true;
@@ -216,18 +216,18 @@ public class Sniper
                             case GUNPOWDER:
                                 if (targetBlock != null)
                                 {
-                                    byte originalData = snipeData.getReplaceData();
+                                    final byte originalData = snipeData.getReplaceData();
                                     snipeData.setReplaceData(targetBlock.getData());
-                                    SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getReplaceId(), originalData), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
+                                    final SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getReplaceId(), originalData), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().replaceData();
                                     return true;
                                 }
                                 else
                                 {
-                                    byte originalData = snipeData.getReplaceData();
+                                    final byte originalData = snipeData.getReplaceData();
                                     snipeData.setReplaceData((byte) 0);
-                                    SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getReplaceId(), originalData), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
+                                    final SniperReplaceMaterialChangedEvent event = new SniperReplaceMaterialChangedEvent(this, toolId, new MaterialData(snipeData.getReplaceId(), originalData), new MaterialData(snipeData.getReplaceId(), snipeData.getReplaceData()));
                                     Bukkit.getPluginManager().callEvent(event);
                                     snipeData.getVoxelMessage().replaceData();
                                     return true;
@@ -242,9 +242,9 @@ public class Sniper
             }
             else
             {
-                Block targetBlock;
-                Block lastBlock;
-                SnipeAction snipeAction = sniperTool.getActionAssigned(itemInHand);
+                final Block targetBlock;
+                final Block lastBlock;
+                final SnipeAction snipeAction = sniperTool.getActionAssigned(itemInHand);
 
                 switch (action)
                 {
@@ -267,7 +267,7 @@ public class Sniper
                 }
                 else
                 {
-                    RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
+                    final RangeBlockHelper rangeBlockHelper = snipeData.isRanged() ? new RangeBlockHelper(getPlayer(), getPlayer().getWorld(), snipeData.getRange()) : new RangeBlockHelper(getPlayer(), getPlayer().getWorld());
                     targetBlock = snipeData.isRanged() ? rangeBlockHelper.getRangeBlock() : rangeBlockHelper.getTargetBlock();
                     lastBlock = rangeBlockHelper.getLastBlock();
 
@@ -280,22 +280,18 @@ public class Sniper
 
                 if (sniperTool.getCurrentBrush() instanceof PerformBrush)
                 {
-                    PerformBrush performerBrush = (PerformBrush) sniperTool.getCurrentBrush();
+                    final PerformBrush performerBrush = (PerformBrush) sniperTool.getCurrentBrush();
                     performerBrush.initP(snipeData);
                 }
 
-                boolean result = sniperTool.getCurrentBrush().perform(snipeAction, snipeData, targetBlock, lastBlock);
-                if (result)
-                {
-                    MetricsManager.increaseBrushUsage(sniperTool.getCurrentBrush().getName());
-                }
+                final boolean result = sniperTool.getCurrentBrush().perform(snipeAction, snipeData, targetBlock, lastBlock);
                 return result;
             }
         }
         return false;
     }
 
-    public IBrush setBrush(String toolId, Class<? extends IBrush> brush)
+    public IBrush setBrush(final String toolId, final Class<? extends IBrush> brush)
     {
         if (!tools.containsKey(toolId))
         {
@@ -305,7 +301,7 @@ public class Sniper
         return tools.get(toolId).setCurrentBrush(brush);
     }
 
-    public IBrush getBrush(String toolId)
+    public IBrush getBrush(final String toolId)
     {
         if (!tools.containsKey(toolId))
         {
@@ -315,7 +311,7 @@ public class Sniper
         return tools.get(toolId).getCurrentBrush();
     }
 
-    public IBrush previousBrush(String toolId)
+    public IBrush previousBrush(final String toolId)
     {
         if (!tools.containsKey(toolId))
         {
@@ -325,9 +321,9 @@ public class Sniper
         return tools.get(toolId).previousBrush();
     }
 
-    public boolean setTool(String toolId, SnipeAction action, Material itemInHand)
+    public boolean setTool(final String toolId, final SnipeAction action, final Material itemInHand)
     {
-        for (Map.Entry<String, SniperTool> entry : tools.entrySet())
+        for (final Map.Entry<String, SniperTool> entry : tools.entrySet())
         {
             if (entry.getKey() != toolId && entry.getValue().hasToolAssigned(itemInHand))
             {
@@ -337,24 +333,24 @@ public class Sniper
 
         if (!tools.containsKey(toolId))
         {
-            SniperTool tool = new SniperTool(this);
+            final SniperTool tool = new SniperTool(this);
             tools.put(toolId, tool);
         }
         tools.get(toolId).assignAction(action, itemInHand);
         return true;
     }
 
-    public void removeTool(String toolId, Material itemInHand)
+    public void removeTool(final String toolId, final Material itemInHand)
     {
         if (!tools.containsKey(toolId))
         {
-            SniperTool tool = new SniperTool(this);
+            final SniperTool tool = new SniperTool(this);
             tools.put(toolId, tool);
         }
         tools.get(toolId).unassignAction(itemInHand);
     }
 
-    public void removeTool(String toolId)
+    public void removeTool(final String toolId)
     {
         if (toolId == null)
         {
@@ -368,12 +364,12 @@ public class Sniper
         return enabled;
     }
 
-    public void setEnabled(boolean enabled)
+    public void setEnabled(final boolean enabled)
     {
         this.enabled = enabled;
     }
 
-    public void storeUndo(Undo undo)
+    public void storeUndo(final Undo undo)
     {
         if (VoxelSniper.getInstance().getVoxelSniperConfiguration().getUndoCacheSize() <= 0)
         {
@@ -394,7 +390,7 @@ public class Sniper
         undo(1);
     }
 
-    public void undo(int amount)
+    public void undo(final int amount)
     {
         int sum = 0;
         if (this.undoList.isEmpty())
@@ -405,7 +401,7 @@ public class Sniper
         {
             for (int x = 0; x < amount && !undoList.isEmpty(); x++)
             {
-                Undo undo = this.undoList.pop();
+                final Undo undo = this.undoList.pop();
                 if (undo != null)
                 {
                     undo.undo();
@@ -420,28 +416,28 @@ public class Sniper
         }
     }
 
-    public void reset(String toolId)
+    public void reset(final String toolId)
     {
-        SniperTool backup = tools.remove(toolId);
-        SniperTool newTool = new SniperTool(this);
+        final SniperTool backup = tools.remove(toolId);
+        final SniperTool newTool = new SniperTool(this);
 
-        for (Map.Entry<SnipeAction, Material> entry : backup.getActionTools().entrySet())
+        for (final Map.Entry<SnipeAction, Material> entry : backup.getActionTools().entrySet())
         {
             newTool.assignAction(entry.getKey(), entry.getValue());
         }
         tools.put(toolId, newTool);
     }
 
-    public SnipeData getSnipeData(String toolId)
+    public SnipeData getSnipeData(final String toolId)
     {
         return tools.containsKey(toolId) ? tools.get(toolId).getSnipeData() : null;
     }
 
     public void displayInfo()
     {
-        String currentToolId = getCurrentToolId();
-        SniperTool sniperTool = tools.get(currentToolId);
-        IBrush brush = sniperTool.getCurrentBrush();
+        final String currentToolId = getCurrentToolId();
+        final SniperTool sniperTool = tools.get(currentToolId);
+        final IBrush brush = sniperTool.getCurrentBrush();
         getPlayer().sendMessage("Current Tool: " + ((currentToolId != null) ? currentToolId : "Default Tool"));
         if (brush == null)
         {
@@ -455,32 +451,32 @@ public class Sniper
         }
     }
 
-    public SniperTool getSniperTool(String toolId)
+    public SniperTool getSniperTool(final String toolId)
     {
         return tools.get(toolId);
     }
 
     public class SniperTool
     {
-        private BiMap<SnipeAction, Material> actionTools = HashBiMap.create();
-        private ClassToInstanceMap<IBrush> brushes = MutableClassToInstanceMap.create();
+        private final BiMap<SnipeAction, Material> actionTools = HashBiMap.create();
+        private final ClassToInstanceMap<IBrush> brushes = MutableClassToInstanceMap.create();
         private Class<? extends IBrush> currentBrush;
         private Class<? extends IBrush> previousBrush;
-        private SnipeData snipeData;
-        private Message messageHelper;
+        private final SnipeData snipeData;
+        private final Message messageHelper;
 
-        private SniperTool(Sniper owner)
+        private SniperTool(final Sniper owner)
         {
             this(SnipeBrush.class, new SnipeData(owner));
         }
 
-        private SniperTool(Class<? extends IBrush> currentBrush, SnipeData snipeData)
+        private SniperTool(final Class<? extends IBrush> currentBrush, final SnipeData snipeData)
         {
             this.snipeData = snipeData;
             messageHelper = new Message(snipeData);
             snipeData.setVoxelMessage(messageHelper);
 
-            IBrush newBrushInstance = instanciateBrush(currentBrush);
+            final IBrush newBrushInstance = instanciateBrush(currentBrush);
             if (snipeData.owner().getPlayer().hasPermission(newBrushInstance.getPermissionNode()))
             {
                 brushes.put(currentBrush, newBrushInstance);
@@ -488,27 +484,27 @@ public class Sniper
             }
         }
 
-        public boolean hasToolAssigned(Material material)
+        public boolean hasToolAssigned(final Material material)
         {
             return actionTools.containsValue(material);
         }
 
-        public SnipeAction getActionAssigned(Material itemInHand)
+        public SnipeAction getActionAssigned(final Material itemInHand)
         {
             return actionTools.inverse().get(itemInHand);
         }
 
-        public Material getToolAssigned(SnipeAction action)
+        public Material getToolAssigned(final SnipeAction action)
         {
             return actionTools.get(action);
         }
 
-        public void assignAction(SnipeAction action, Material itemInHand)
+        public void assignAction(final SnipeAction action, final Material itemInHand)
         {
             actionTools.forcePut(action, itemInHand);
         }
 
-        public void unassignAction(Material itemInHand)
+        public void unassignAction(final Material itemInHand)
         {
             actionTools.inverse().remove(itemInHand);
         }
@@ -537,7 +533,7 @@ public class Sniper
             return brushes.getInstance(currentBrush);
         }
 
-        public IBrush setCurrentBrush(Class<? extends IBrush> brush)
+        public IBrush setCurrentBrush(final Class<? extends IBrush> brush)
         {
             Preconditions.checkNotNull(brush, "Can't set brush to null.");
             IBrush brushInstance = brushes.get(brush);
@@ -573,17 +569,17 @@ public class Sniper
             return setCurrentBrush(previousBrush);
         }
 
-        private IBrush instanciateBrush(Class<? extends IBrush> brush)
+        private IBrush instanciateBrush(final Class<? extends IBrush> brush)
         {
             try
             {
                 return brush.newInstance();
             }
-            catch (InstantiationException e)
+            catch (final InstantiationException e)
             {
                 return null;
             }
-            catch (IllegalAccessException e)
+            catch (final IllegalAccessException e)
             {
                 return null;
             }

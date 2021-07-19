@@ -4,12 +4,13 @@
  */
 package com.thevoxelbox.voxelsniper.brush.perform;
 
+import java.util.Arrays;
+
+import org.bukkit.Bukkit;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.brush.Brush;
 import com.thevoxelbox.voxelsniper.event.SniperBrushChangedEvent;
-import org.bukkit.Bukkit;
-
-import java.util.Arrays;
 
 /**
  * @author Voxel

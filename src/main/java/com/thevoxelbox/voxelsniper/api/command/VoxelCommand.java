@@ -1,7 +1,8 @@
 package com.thevoxelbox.voxelsniper.api.command;
 
-import com.thevoxelbox.voxelsniper.VoxelSniper;
 import org.bukkit.entity.Player;
+
+import com.thevoxelbox.voxelsniper.VoxelSniper;
 
 public abstract class VoxelCommand
 {

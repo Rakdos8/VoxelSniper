@@ -1,11 +1,12 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import java.util.Random;
+
+import org.bukkit.block.Block;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Undo;
-import org.bukkit.block.Block;
-
-import java.util.Random;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#The_Random-Erode_Brush

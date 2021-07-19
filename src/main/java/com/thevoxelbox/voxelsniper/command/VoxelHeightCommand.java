@@ -1,11 +1,12 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class VoxelHeightCommand extends VoxelCommand
 {
@@ -17,14 +18,14 @@ public class VoxelHeightCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
-        SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
 
         try
         {
-            int height = Integer.parseInt(args[0]);
+            final int height = Integer.parseInt(args[0]);
             snipeData.setVoxelHeight(height);
             snipeData.getVoxelMessage().height();
             return true;

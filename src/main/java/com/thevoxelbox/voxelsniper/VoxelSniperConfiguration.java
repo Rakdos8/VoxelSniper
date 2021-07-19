@@ -1,9 +1,10 @@
 package com.thevoxelbox.voxelsniper;
 
-import com.google.common.base.Preconditions;
+import java.util.List;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.List;
+import com.google.common.base.Preconditions;
 
 /**
  * Configuration storage defining global configurations for VoxelSniper.
@@ -17,12 +18,12 @@ public class VoxelSniperConfiguration
     public static final int DEFAULT_LITESNIPER_MAX_BRUSH_SIZE = 5;
     public static final int DEFAULT_UNDO_CACHE_SIZE = 20;
     public static final boolean DEFAULT_MESSAGE_ON_LOGIN_ENABLED = true;
-    private FileConfiguration configuration;
+    private final FileConfiguration configuration;
 
     /**
      * @param configuration Configuration that is going to be used.
      */
-    public VoxelSniperConfiguration(FileConfiguration configuration)
+    public VoxelSniperConfiguration(final FileConfiguration configuration)
     {
         this.configuration = configuration;
     }
@@ -42,7 +43,7 @@ public class VoxelSniperConfiguration
      *
      * @param size size of undo cache
      */
-    public void setUndoCacheSize(int size)
+    public void setUndoCacheSize(final int size)
     {
         configuration.set(CONFIG_IDENTIFIER_UNDO_CACHE_SIZE, size);
     }
@@ -62,7 +63,7 @@ public class VoxelSniperConfiguration
      *
      * @param size maximum size
      */
-    public void setLiteSniperMaxBrushSize(int size)
+    public void setLiteSniperMaxBrushSize(final int size)
     {
         configuration.set(CONFIG_IDENTIFIER_LITESNIPER_MAX_BRUSH_SIZE, size);
     }
@@ -82,7 +83,7 @@ public class VoxelSniperConfiguration
      *
      * @param restrictedItems List of restricted Litesniper Items
      */
-    public void setLitesniperRestrictedItems(List<Integer> restrictedItems)
+    public void setLitesniperRestrictedItems(final List<Integer> restrictedItems)
     {
         Preconditions.checkNotNull(restrictedItems, "Restricted items must be a list.");
         configuration.set(CONFIG_IDENTIFIER_LITESNIPER_RESTRICTED_ITEMS, restrictedItems);
@@ -103,7 +104,7 @@ public class VoxelSniperConfiguration
      *
      * @param enabled Message on Login enabled
      */
-    public void setMessageOnLoginEnabled(boolean enabled)
+    public void setMessageOnLoginEnabled(final boolean enabled)
     {
         configuration.set(CONFIG_IDENTIFIER_MESSAGE_ON_LOGIN_ENABLED, enabled);
     }

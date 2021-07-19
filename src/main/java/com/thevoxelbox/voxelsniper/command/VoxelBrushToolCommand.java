@@ -1,11 +1,12 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.SnipeAction;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
 public class VoxelBrushToolCommand extends VoxelCommand
 {
@@ -17,15 +18,15 @@ public class VoxelBrushToolCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
 
         if (args != null && args.length > 0)
         {
             if (args[0].equalsIgnoreCase("assign"))
             {
-                SnipeAction action;
+                final SnipeAction action;
                 if (args[1].equalsIgnoreCase("arrow"))
                 {
                     action = SnipeAction.ARROW;
@@ -42,7 +43,7 @@ public class VoxelBrushToolCommand extends VoxelCommand
 
                 if (args.length == 3 && args[2] != null && !args[2].isEmpty())
                 {
-                    Material itemInHand = (player.getItemInHand() != null) ? player.getItemInHand().getType() : null;
+                    final Material itemInHand = (player.getItemInHand() != null) ? player.getItemInHand().getType() : null;
                     if (itemInHand == null)
                     {
                         player.sendMessage("/btool assign <arrow|powder> <toolid>");
@@ -68,7 +69,7 @@ public class VoxelBrushToolCommand extends VoxelCommand
                 }
                 else
                 {
-                    Material itemInHand = (player.getItemInHand() != null) ? player.getItemInHand().getType() : null;
+                    final Material itemInHand = (player.getItemInHand() != null) ? player.getItemInHand().getType() : null;
                     if (itemInHand == null)
                     {
                         player.sendMessage("Can't unassign empty hands.");

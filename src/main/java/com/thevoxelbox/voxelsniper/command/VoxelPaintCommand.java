@@ -1,10 +1,11 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.PaintingWrapper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class VoxelPaintCommand extends VoxelCommand
 {
@@ -16,7 +17,7 @@ public class VoxelPaintCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
         if (args.length == 1)
         {

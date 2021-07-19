@@ -1,9 +1,10 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.Chunk;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Undo;
-import org.bukkit.Chunk;
 
 /**
  * Regenerates the target chunk.

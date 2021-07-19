@@ -1,14 +1,15 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import java.util.logging.Level;
+
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
+import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
 import com.thevoxelbox.voxelsniper.brush.IBrush;
 import com.thevoxelbox.voxelsniper.brush.perform.Performer;
-import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.entity.Player;
-
-import java.util.logging.Level;
 
 public class VoxelPerformerCommand extends VoxelCommand
 {
@@ -20,16 +21,16 @@ public class VoxelPerformerCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
-        SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
 
         try
         {
             if (args == null || args.length == 0)
             {
-                IBrush brush = sniper.getBrush(sniper.getCurrentToolId());
+                final IBrush brush = sniper.getBrush(sniper.getCurrentToolId());
                 if (brush instanceof Performer)
                 {
                     ((Performer) brush).parse(new String[]{ "m" }, snipeData);
@@ -41,7 +42,7 @@ public class VoxelPerformerCommand extends VoxelCommand
             }
             else
             {
-                IBrush brush = sniper.getBrush(sniper.getCurrentToolId());
+                final IBrush brush = sniper.getBrush(sniper.getCurrentToolId());
                 if (brush instanceof Performer)
                 {
                     ((Performer) brush).parse(args, snipeData);
@@ -53,7 +54,7 @@ public class VoxelPerformerCommand extends VoxelCommand
             }
             return true;
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             plugin.getLogger().log(Level.WARNING, "Command error from " + player.getName(), exception);
             return true;

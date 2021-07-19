@@ -1,18 +1,19 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import java.util.List;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
-import com.thevoxelbox.voxelsniper.brush.IBrush;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
+import com.thevoxelbox.voxelsniper.brush.IBrush;
 import com.thevoxelbox.voxelsniper.brush.perform.PerformerE;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
-import java.util.List;
 
 public class VoxelSniperCommand extends VoxelCommand
 {
@@ -26,17 +27,17 @@ public class VoxelSniperCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = VoxelSniper.getInstance().getSniperManager().getSniperForPlayer(player);
+        final Sniper sniper = VoxelSniper.getInstance().getSniperManager().getSniperForPlayer(player);
 
         if (args.length >= 1)
         {
             if (args[0].equalsIgnoreCase("brushes"))
             {
-                Multimap<Class<? extends IBrush>, String> registeredBrushesMultimap = VoxelSniper.getInstance().getBrushManager().getRegisteredBrushesMultimap();
-                List<String> allHandles = Lists.newLinkedList();
-                for (Class<? extends IBrush> brushClass : registeredBrushesMultimap.keySet())
+                final Multimap<Class<? extends IBrush>, String> registeredBrushesMultimap = VoxelSniper.getInstance().getBrushManager().getRegisteredBrushesMultimap();
+                final List<String> allHandles = Lists.newLinkedList();
+                for (final Class<? extends IBrush> brushClass : registeredBrushesMultimap.keySet())
                 {
                     allHandles.addAll(registeredBrushesMultimap.get(brushClass));
                 }
@@ -45,12 +46,12 @@ public class VoxelSniperCommand extends VoxelCommand
             }
             else if (args[0].equalsIgnoreCase("range"))
             {
-                SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
+                final SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
                 if (args.length == 2)
                 {
                     try
                     {
-                        int range = Integer.parseInt(args[1]);
+                        final int range = Integer.parseInt(args[1]);
                         if (range < 0)
                         {
                             player.sendMessage("Negative values are not allowed.");
@@ -60,7 +61,7 @@ public class VoxelSniperCommand extends VoxelCommand
                         snipeData.getVoxelMessage().toggleRange();
 
                     }
-                    catch (NumberFormatException exception)
+                    catch (final NumberFormatException exception)
                     {
                         player.sendMessage("Can't parse number.");
                     }

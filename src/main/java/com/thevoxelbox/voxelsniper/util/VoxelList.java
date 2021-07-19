@@ -1,12 +1,13 @@
 package com.thevoxelbox.voxelsniper.util;
 
-import com.google.common.collect.ImmutableList;
-import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Container class for multiple ID/Datavalue pairs.
@@ -20,7 +21,7 @@ public class VoxelList
 
     /**
      * Adds the specified id, data value pair to the VoxelList. A data value of -1 will operate on all data values of that id.
-     * 
+     *
      * @param i
      */
     public void add(BlockData[] i)
@@ -51,7 +52,7 @@ public class VoxelList
 
     /**
      * Removes the specified id, data value pair from the VoxelList.
-     * 
+     *
      * @param i
      * @return true if this list contained the specified element
      */

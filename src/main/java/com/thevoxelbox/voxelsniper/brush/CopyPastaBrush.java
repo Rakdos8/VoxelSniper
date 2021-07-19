@@ -1,11 +1,11 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Undo;
-
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#CopyPasta_Brush
@@ -27,7 +27,7 @@ public class CopyPastaBrush extends Brush
     private int[] blockArray;
     private byte[] dataArray;
     private int[] arraySize = new int[3];
-    private int pivot = 0; // ccw degrees    
+    private int pivot = 0; // ccw degrees
 
     /**
      *

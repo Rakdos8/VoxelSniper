@@ -1,10 +1,11 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Undo;
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#Spiral_Staircase_Brush

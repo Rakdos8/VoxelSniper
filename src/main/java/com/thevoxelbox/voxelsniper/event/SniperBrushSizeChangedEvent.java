@@ -1,9 +1,9 @@
 package com.thevoxelbox.voxelsniper.event;
 
-import com.thevoxelbox.voxelsniper.Sniper;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import com.thevoxelbox.voxelsniper.Sniper;
 
 /**
  *
@@ -16,7 +16,7 @@ public class SniperBrushSizeChangedEvent extends Event
     private final int newSize;
     private final String toolId;
 
-    public SniperBrushSizeChangedEvent(Sniper sniper, String toolId, int originalSize, int newSize)
+    public SniperBrushSizeChangedEvent(final Sniper sniper, final String toolId, final int originalSize, final int newSize)
     {
         this.sniper = sniper;
         this.originalSize = originalSize;

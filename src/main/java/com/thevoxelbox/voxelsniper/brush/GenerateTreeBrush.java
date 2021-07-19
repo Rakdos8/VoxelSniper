@@ -3,13 +3,13 @@ package com.thevoxelbox.voxelsniper.brush;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.thevoxelbox.voxelsniper.Message;
-import com.thevoxelbox.voxelsniper.SnipeData;
-import com.thevoxelbox.voxelsniper.Undo;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+
+import com.thevoxelbox.voxelsniper.Message;
+import com.thevoxelbox.voxelsniper.SnipeData;
+import com.thevoxelbox.voxelsniper.Undo;
 
 // Proposal: Use /v and /vr for leave and wood material // or two more parameters -- Monofraps
 
@@ -393,7 +393,7 @@ public class GenerateTreeBrush extends Brush
     }
 
     /*
-     * 
+     *
      * Code Concerning Trunk Generation
      */
     private void trunkGen()

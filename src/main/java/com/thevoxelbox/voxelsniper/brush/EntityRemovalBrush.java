@@ -1,15 +1,16 @@
 package com.thevoxelbox.voxelsniper.brush;
 
-import com.thevoxelbox.voxelsniper.Message;
-import com.thevoxelbox.voxelsniper.SnipeData;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.entity.Entity;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.entity.Entity;
+
+import com.thevoxelbox.voxelsniper.Message;
+import com.thevoxelbox.voxelsniper.SnipeData;
 
 /**
  *

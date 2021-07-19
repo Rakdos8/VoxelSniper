@@ -1,11 +1,11 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
-
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 
 /**
  * A brush that creates a solid ball.

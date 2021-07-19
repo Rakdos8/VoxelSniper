@@ -1,10 +1,10 @@
 package com.thevoxelbox.voxelsniper;
 
-import com.thevoxelbox.voxelsniper.util.VoxelList;
-
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.data.BlockData;
+
+import com.thevoxelbox.voxelsniper.util.VoxelList;
 
 /**
  * @author Piotr
@@ -272,7 +272,7 @@ public class SnipeData
         return range;
     }
 
-    public void setRange(int range)
+    public void setRange(final int range)
     {
         this.range = range;
     }
@@ -282,7 +282,7 @@ public class SnipeData
         return ranged;
     }
 
-    public void setRanged(boolean ranged)
+    public void setRanged(final boolean ranged)
     {
         this.ranged = ranged;
     }
@@ -292,12 +292,12 @@ public class SnipeData
         return lightning;
     }
 
-    public void setLightningEnabled(boolean lightning)
+    public void setLightningEnabled(final boolean lightning)
     {
         this.lightning = lightning;
     }
 
-    public void setVoxelData(BlockData blockData) {
+    public void setVoxelData(final BlockData blockData) {
         this.blockData = blockData;
     }
 

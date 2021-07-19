@@ -1,10 +1,10 @@
 package com.thevoxelbox.voxelsniper.brush;
 
-import com.thevoxelbox.voxelsniper.SnipeData;
-import com.thevoxelbox.voxelsniper.Undo;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+
+import com.thevoxelbox.voxelsniper.SnipeData;
+import com.thevoxelbox.voxelsniper.Undo;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#Blend_Brushes
@@ -110,7 +110,7 @@ public class BlendBallBrush extends BlendBrushBase
         final Undo undo = new Undo();
         final double rSquared = Math.pow(brushSize + 1, 2);
 
-        // Make the changes  
+        // Make the changes
         for (int x = brushSizeDoubled; x >= 0; x--)
         {
             final double xSquared = Math.pow(x - brushSize - 1, 2);

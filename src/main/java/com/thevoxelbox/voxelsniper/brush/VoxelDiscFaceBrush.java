@@ -1,10 +1,11 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#The_Voxel_Disc_Face_Brush

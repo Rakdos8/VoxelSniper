@@ -1,6 +1,10 @@
 package com.thevoxelbox.voxelsniper;
 
-import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -13,10 +17,7 @@ import org.bukkit.block.NoteBlock;
 import org.bukkit.block.Sign;
 import org.bukkit.util.Vector;
 
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import com.google.common.collect.Sets;
 
 /**
  * Holds {@link BlockState}s that can be later on used to reset those block
@@ -78,9 +79,9 @@ public class Undo {
      * Default constructor of a Undo container.
      */
     public Undo() {
-        all = new LinkedList<BlockState>();
-        falloff = new LinkedList<BlockState>();
-        dropdown = new LinkedList<BlockState>();
+        all = new LinkedList<>();
+        falloff = new LinkedList<>();
+        dropdown = new LinkedList<>();
     }
 
     /**
@@ -97,8 +98,8 @@ public class Undo {
      *
      * @param block Block to be added
      */
-    public void put(Block block) {
-        Vector pos = block.getLocation().toVector();
+    public void put(final Block block) {
+        final Vector pos = block.getLocation().toVector();
         if (this.containing.contains(pos)) {
             return;
         }
@@ -118,17 +119,17 @@ public class Undo {
      */
     public void undo() {
 
-        for (BlockState blockState : all) {
+        for (final BlockState blockState : all) {
             blockState.update(true, false);
             updateSpecialBlocks(blockState);
         }
 
-        for (BlockState blockState : falloff) {
+        for (final BlockState blockState : falloff) {
             blockState.update(true, false);
             updateSpecialBlocks(blockState);
         }
 
-        for (BlockState blockState : dropdown) {
+        for (final BlockState blockState : dropdown) {
             blockState.update(true, false);
             updateSpecialBlocks(blockState);
         }
@@ -137,8 +138,8 @@ public class Undo {
     /**
      * @param blockState
      */
-    private void updateSpecialBlocks(BlockState blockState) {
-        BlockState currentState = blockState.getBlock().getState();
+    private void updateSpecialBlocks(final BlockState blockState) {
+        final BlockState currentState = blockState.getBlock().getState();
         if (blockState instanceof BrewingStand && currentState instanceof BrewingStand) {
             ((BrewingStand) currentState).getInventory().setContents(((BrewingStand) blockState).getInventory().getContents());
         } else if (blockState instanceof Chest && currentState instanceof Chest) {
@@ -161,7 +162,7 @@ public class Undo {
             currentState.update();
         } else if (blockState instanceof Sign && currentState instanceof Sign) {
             int i = 0;
-            for (String text : ((Sign) blockState).getLines()) {
+            for (final String text : ((Sign) blockState).getLines()) {
                 ((Sign) currentState).setLine(i++, text);
             }
             currentState.update();

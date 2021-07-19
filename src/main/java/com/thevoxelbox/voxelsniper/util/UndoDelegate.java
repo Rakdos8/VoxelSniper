@@ -1,10 +1,11 @@
 
 package com.thevoxelbox.voxelsniper.util;
 
-import com.thevoxelbox.voxelsniper.Undo;
 import org.bukkit.BlockChangeDelegate;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+
+import com.thevoxelbox.voxelsniper.Undo;
 
 /**
  *
@@ -13,7 +14,7 @@ public class UndoDelegate implements BlockChangeDelegate
 {
     private final World targetWorld;
     private Undo currentUndo;
-        
+
     public Undo getUndo()
     {
         final Undo pastUndo = currentUndo;
@@ -32,7 +33,7 @@ public class UndoDelegate implements BlockChangeDelegate
     public boolean setRawTypeId(int x, int y, int z, int typeId)
     {
         this.currentUndo.put(targetWorld.getBlockAt(x, y, z));
-        return this.targetWorld.getBlockAt(x, y, z).setTypeId(typeId, false);        
+        return this.targetWorld.getBlockAt(x, y, z).setTypeId(typeId, false);
     }
 
     @SuppressWarnings("deprecation")
@@ -58,14 +59,14 @@ public class UndoDelegate implements BlockChangeDelegate
         this.currentUndo.put(targetWorld.getBlockAt(x, y, z));
         return this.targetWorld.getBlockAt(x, y, z).setTypeIdAndData(typeId, (byte) data, true);
     }
-    
+
     @SuppressWarnings("deprecation")
 	public boolean setBlock(Block b)
     {
         this.currentUndo.put(this.targetWorld.getBlockAt(b.getLocation()));
         return this.targetWorld.getBlockAt(b.getLocation()).setTypeIdAndData(b.getTypeId(), b.getData(), true);
     }
-    
+
 
     @SuppressWarnings("deprecation")
 	@Override

@@ -1,9 +1,10 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import org.bukkit.ChatColor;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
-import org.bukkit.ChatColor;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#Underlay_Brush

@@ -1,11 +1,10 @@
 package com.thevoxelbox.voxelsniper.event;
 
-import com.thevoxelbox.voxelsniper.Sniper;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.material.MaterialData;
+
+import com.thevoxelbox.voxelsniper.Sniper;
 
 /**
  *
@@ -18,7 +17,7 @@ public class SniperMaterialChangedEvent extends Event
     private final BlockData newMaterial;
     private final String toolId;
 
-    public SniperMaterialChangedEvent(Sniper sniper, String toolId, BlockData originalMaterial, BlockData newMaterial)
+    public SniperMaterialChangedEvent(final Sniper sniper, final String toolId, final BlockData originalMaterial, final BlockData newMaterial)
     {
         this.sniper = sniper;
         this.originalMaterial = originalMaterial;

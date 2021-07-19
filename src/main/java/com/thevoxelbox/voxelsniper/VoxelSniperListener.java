@@ -1,7 +1,8 @@
 package com.thevoxelbox.voxelsniper;
 
-import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import com.thevoxelbox.voxelsniper.command.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,8 +10,24 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelBrushCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelBrushToolCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelCenterCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelChunkCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelDefaultCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelGoToCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelHeightCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelInkCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelInkReplaceCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelListCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelPaintCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelPerformerCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelReplaceCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelSniperCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelUndoCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelUndoUserCommand;
+import com.thevoxelbox.voxelsniper.command.VoxelVoxelCommand;
 
 /**
  * @author Voxel
@@ -20,7 +37,7 @@ public class VoxelSniperListener implements Listener
 
     private static final String SNIPER_PERMISSION = "voxelsniper.sniper";
     private final VoxelSniper plugin;
-    private Map<String, VoxelCommand> commands = new HashMap<String, VoxelCommand>();
+    private final Map<String, VoxelCommand> commands = new HashMap<>();
 
     /**
      * @param plugin
@@ -28,7 +45,6 @@ public class VoxelSniperListener implements Listener
     public VoxelSniperListener(final VoxelSniper plugin)
     {
         this.plugin = plugin;
-        MetricsManager.setSnipeCounterInitTimeStamp(System.currentTimeMillis());
         addCommand(new VoxelBrushCommand(plugin));
         addCommand(new VoxelBrushToolCommand(plugin));
         addCommand(new VoxelCenterCommand(plugin));
@@ -61,7 +77,7 @@ public class VoxelSniperListener implements Listener
      */
     public boolean onCommand(final Player player, final String[] split, final String command)
     {
-        VoxelCommand found = this.commands.get(command.toLowerCase());
+        final VoxelCommand found = this.commands.get(command.toLowerCase());
         if (found == null)
         {
             return false;
@@ -101,7 +117,7 @@ public class VoxelSniperListener implements Listener
     @EventHandler(ignoreCancelled = false)
     public final void onPlayerInteract(final PlayerInteractEvent event)
     {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 
         if (!player.hasPermission(SNIPER_PERMISSION))
         {
@@ -110,10 +126,9 @@ public class VoxelSniperListener implements Listener
 
         try
         {
-            Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+            final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
             if (sniper.isEnabled() && sniper.snipe(event.getAction(), event.getMaterial(), event.getClickedBlock(), event.getBlockFace()))
             {
-                MetricsManager.increaseSnipeCounter();
                 event.setCancelled(true);
             }
         }
@@ -128,8 +143,8 @@ public class VoxelSniperListener implements Listener
     @EventHandler
     public final void onPlayerJoin(final PlayerJoinEvent event)
     {
-        Player player = event.getPlayer();
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final Player player = event.getPlayer();
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
 
         if (player.hasPermission(SNIPER_PERMISSION) && plugin.getVoxelSniperConfiguration().isMessageOnLoginEnabled())
         {

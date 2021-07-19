@@ -2,15 +2,15 @@ package com.thevoxelbox.voxelsniper.brush;
 
 import java.util.Random;
 
-import com.thevoxelbox.voxelsniper.Message;
-import com.thevoxelbox.voxelsniper.SnipeData;
-import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
-
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
+
+import com.thevoxelbox.voxelsniper.Message;
+import com.thevoxelbox.voxelsniper.SnipeData;
+import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#Jagged_Line_Brush

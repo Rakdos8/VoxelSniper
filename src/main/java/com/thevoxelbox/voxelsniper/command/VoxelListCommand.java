@@ -1,13 +1,14 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.RangeBlockHelper;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public class VoxelListCommand extends VoxelCommand
 {
@@ -19,11 +20,11 @@ public class VoxelListCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
 
-        SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
+        final SnipeData snipeData = sniper.getSnipeData(sniper.getCurrentToolId());
         if (args.length == 0)
         {
             final RangeBlockHelper rangeBlockHelper = new RangeBlockHelper(player, player.getWorld());
@@ -46,9 +47,9 @@ public class VoxelListCommand extends VoxelCommand
 
         for (final String string : args)
         {
-            String tmpint;
-            Integer xint;
-            Integer xdat;
+            final String tmpint;
+            final Integer xint;
+            final Integer xdat;
 
             if (string.startsWith("-"))
             {
@@ -64,7 +65,7 @@ public class VoxelListCommand extends VoxelCommand
             {
                 if (tmpint.contains(":"))
                 {
-                    String[] tempintsplit = tmpint.split(":");
+                    final String[] tempintsplit = tmpint.split(":");
                     xint = Integer.parseInt(tempintsplit[0]);
                     xdat = Integer.parseInt(tempintsplit[1]);
                 }
@@ -89,7 +90,7 @@ public class VoxelListCommand extends VoxelCommand
                 }
 
             }
-            catch (NumberFormatException ignored)
+            catch (final NumberFormatException ignored)
             {
             }
         }

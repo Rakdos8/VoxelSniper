@@ -1,9 +1,10 @@
 package com.thevoxelbox.voxelsniper.command;
 
+import org.bukkit.entity.Player;
+
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.VoxelSniper;
 import com.thevoxelbox.voxelsniper.api.command.VoxelCommand;
-import org.bukkit.entity.Player;
 
 public class VoxelUndoCommand extends VoxelCommand
 {
@@ -15,18 +16,18 @@ public class VoxelUndoCommand extends VoxelCommand
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args)
+    public boolean onCommand(final Player player, final String[] args)
     {
-        Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
+        final Sniper sniper = plugin.getSniperManager().getSniperForPlayer(player);
 
         if (args.length == 1)
         {
             try
             {
-                int amount = Integer.parseInt(args[0]);
+                final int amount = Integer.parseInt(args[0]);
                 sniper.undo(amount);
             }
-            catch (NumberFormatException exception)
+            catch (final NumberFormatException exception)
             {
                 player.sendMessage("Error while parsing amount of undo. Number format exception.");
             }

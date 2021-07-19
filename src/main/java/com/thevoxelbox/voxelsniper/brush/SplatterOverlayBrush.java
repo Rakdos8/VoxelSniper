@@ -1,11 +1,12 @@
 package com.thevoxelbox.voxelsniper.brush;
 
+import java.util.Random;
+
+import org.bukkit.ChatColor;
+
 import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.brush.perform.PerformBrush;
-import org.bukkit.ChatColor;
-
-import java.util.Random;
 
 /**
  * http://www.voxelwiki.com/minecraft/Voxelsniper#Splatter_Overlay_Brush
